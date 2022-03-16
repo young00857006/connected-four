@@ -54,11 +54,13 @@ struct CircleView: View {
                     .frame(width: 40, height: 40)
                     .clipped()
                     .foregroundColor(.blue)
+                Text(String(index))
+                
             }
         }
         .onTapGesture {
             let judge = judgeIndex(circles: circles, index: index)
-            if(judge != -1){
+            if(judge != -1 && circles[judge] != 1 && circles[judge] != 2){
                 circles[judge] = player
                 if(player==1){
                     player = 2
@@ -66,8 +68,9 @@ struct CircleView: View {
                 else{
                     player = 1
                 }
+                judgeGame(circles: circles, index: judge)
             }
-            judgeGame(circles: circles, index: judge)
+            
         }
     }
 }
@@ -96,133 +99,56 @@ func judgeIndex(circles:Array<Int>,index:Int)->Int{
 }
 
 func judgeGame(circles:Array<Int>,index:Int){
-    var final = [0,0,0,0,0,0,0,0]
-    //right
-    var right = index
-    for i in (0..<3){
-        right = right + 1
-        if(right > index/5*6+5){
-            break
+    var final = [0,0,0,0,0]
+    let column = index / 6
+    let row = index % 6
+    var target = index
+//
+//    print(index)
+//    print(column)
+//    print(row)
+//    print("-------")
+//    print((column+1)*6)//right
+//    print(column*6)//left
+//    print(row)//up
+//    print(row+36)//down
+//    print("--------")
+//
+    for i in (1..<4){
+        //right
+        target = index
+        target = target + 1*i
+        if(target < (column+1)*6 && circles[target] == circles[index]){
+            final[0] += 1
         }
-        else if(circles[right] != circles[index]){
-            break
-        }
-        else{
-            final[0]+=1
-        }
-    }
-    
-    //left
-    var left = index
-    for i in (0..<3){
-        left = right - 1
-        if(right < index/5*6){
-            break
-        }
-        else if(circles[left] != circles[index]){
-            break
-        }
-        else{
+        
+        //left
+        target = index
+        target = target - 1*i
+        if(target >= column*6 && circles[target] == circles[index]){
             final[1] += 1
         }
-    }
-    
-    //up
-    var up = index
-    for i in (0..<3){
-        up = up - 6
-        if(up/6<0){
-            break
-        }
-        else if(circles[up] != circles[index]){
-            break
-        }
-        else{
+        target = index
+        target = target + 6*i
+        if(target <= row+36 && circles[target] == circles[index]){
             final[2] += 1
         }
-    }
-    
-    //down
-    var down = index
-    for i in (0..<3){
-        down = down + 6
-        if(down/6 > 6){
-            break
-        }
-        else if(circles[down] != circles[index]){
-            break
-        }
-        else{
+        //rightdown
+        target = index
+        target = target + 1 * i + 6 * i
+        if(target < (column+1)*6 && target <= row+36 && circles[target] == circles[index]){
             final[3] += 1
+            
         }
-    }
-    
-    //upright
-    var upright = index
-    for i in (0..<3){
-        upright = upright + 1 - 6
-        if(upright > index/5*6+5 || upright%6<0){
-            break
-        }
-        else if(circles[down] != circles[index]){
-            break
-        }
-        else{
+        
+        //leftdown
+        target = index
+        target = target - 1*i + 6*i
+        if(target >= column*6 && target <= row+36 && circles[target] == circles[index]){
             final[4] += 1
         }
+        
     }
-    
-    //downright
-    var downright = index
-    for i in(0..<3){
-        downright = downright + 1 + 6
-        if(downright > index/5*6+5 || downright%6>6){
-            break
-        }
-        else if(circles[down] != circles[index]){
-            break
-        }
-        else{
-            final[5] += 1
-        }
-    }
-    
-    //upleft
-    var upleft = index
-    for i in (0..<3){
-        upleft = upleft - 1 - 6
-        if(upleft%6<0 || upleft < index/5*6){
-            break
-        }
-        else if(circles[down] != circles[index]){
-            break
-        }
-        else{
-            final[6] += 1
-        }
-    }
-    
-    //downleft
-    var downleft = index
-    for i in(0..<3){
-        downleft = index
-        if(downleft%6 > 6 || downleft < index/5*6){
-            break
-        }
-        else if(circles[down] != circles[index]){
-            break
-        }
-        else{
-            final[7] += 1
-        }
-    }
-    
-    for i in final{
-        if(final[i] == 3){
-            print(i)
-        }
-    }
-    
 }
 
 struct ContentView_Previews: PreviewProvider {
