@@ -12,14 +12,82 @@ struct ContentView: View {
     
     @State private var circleArray = Array(repeating: 0, count: 42)
     @State private var player = 1
-
+    var redWin = 0
+    @State var redtimes = 21
+    var yellowWin = 0
+    @State var yellowtimes = 21
     var body: some View {
-        let columns = Array(repeating: GridItem(), count: 6)
-        LazyVGrid(columns: columns) {
-            ForEach(0..<42) { item in
-                CircleView(circles : $circleArray, player:$player, index: item)
+        
+        VStack(){
+            HStack(alignment:.top){
+                VStack(alignment: .leading){
+                    Image("yellow")
+                        .resizable()
+                        .frame(width: 50, height: 50)
+                    Text("出手剩餘\(yellowtimes)次")
+                    Text("Win : \(yellowWin)")
+                }
+                .padding()
+                
+                Spacer()
+                
+                VStack{
+                    if(player==1){
+                        Text("目前輪到 : 紅")
+                        Image("red")
+                            .resizable()
+                            .frame(width: 50, height: 50)
+                    }
+                    else{
+                        Text("目前輪到 : 黃")
+                        Image("yellow")
+                            .resizable()
+                            .frame(width: 50, height: 50)
+                    }
+                }
+               
+                
+                Spacer()
+
+                VStack(alignment: .trailing){
+                    Image("red")
+                        .resizable()
+                        .frame(width: 50, height: 50 )
+                    Text("出手剩餘\(redtimes)次")
+                    Text("Win : \(redWin)")
+                }
+                .padding()
             }
+            
+            
+            let columns = Array(repeating: GridItem(), count: 6)
+            LazyVGrid(columns: columns) {
+                ForEach(0..<42) { item in
+                    CircleView(circles : $circleArray, player:$player, yellowtimes:$yellowtimes, redtimes:$redtimes, index: item)
+                }
+            }
+            
+            Button{
+                redtimes = 21
+                yellowtimes = 21
+                player = 1
+                for i in (0..<42){
+                    circleArray[i] = 0
+                }
+                    
+            }label:{
+                Image("restart")
+                    .resizable()
+                    .frame(width: 100, height: 100)
+                    .cornerRadius(5)
+            }
+         
+        
         }
+        .offset(y:-150)
+        
+        
+        
     }
 }
 
@@ -29,6 +97,8 @@ struct CircleView: View {
     
     @Binding var circles: Array<Int>
     @Binding var player : Int
+    @Binding var yellowtimes : Int
+    @Binding var redtimes : Int
     var index : Int
     
     var body: some View {
@@ -54,21 +124,24 @@ struct CircleView: View {
                     .frame(width: 40, height: 40)
                     .clipped()
                     .foregroundColor(.blue)
-                Text(String(index))
+//                Text(String(index))
                 
             }
         }
         .onTapGesture {
             let judge = judgeIndex(circles: circles, index: index)
+            var final = -1
             if(judge != -1 && circles[judge] != 1 && circles[judge] != 2){
                 circles[judge] = player
                 if(player==1){
+                    redtimes -= 1
                     player = 2
                 }
                 else{
+                    yellowtimes -= 1
                     player = 1
                 }
-                judgeGame(circles: circles, index: judge)
+                final = judgeGame(circles: circles, index: judge)
             }
             
         }
@@ -98,22 +171,12 @@ func judgeIndex(circles:Array<Int>,index:Int)->Int{
     return ans
 }
 
-func judgeGame(circles:Array<Int>,index:Int){
-    var final = [0,0,0,0,0]
+func judgeGame(circles:Array<Int>,index:Int)->Int{
+    var final = [0,0,0,0,0,0,0]
     let column = index / 6
     let row = index % 6
     var target = index
-//
-//    print(index)
-//    print(column)
-//    print(row)
-//    print("-------")
-//    print((column+1)*6)//right
-//    print(column*6)//left
-//    print(row)//up
-//    print(row+36)//down
-//    print("--------")
-//
+    var ans = -1
     for i in (1..<4){
         //right
         target = index
@@ -148,7 +211,27 @@ func judgeGame(circles:Array<Int>,index:Int){
             final[4] += 1
         }
         
+        //rightup
+        target = index
+        target = target + 1*i - 6*i
+        if(target < (column+1)*6 && target <= row && circles[target] == circles[index]){
+            final[5] += 1
+        }
+        
+        //leftup
+        target = index
+        target = target - 1*i - 6*i
+        if(target >= column*6 && target <= row && circles[target] == circles[index]){
+            final[6] += 1
+        }
     }
+    for i in (0..<7){
+        if(final[i]==3){
+            ans = i
+            break
+        }
+    }
+    return ans
 }
 
 struct ContentView_Previews: PreviewProvider {
