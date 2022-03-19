@@ -14,6 +14,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D358D3B727E5DCDE00D613C2 /* connected-four-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "connected-four-Info.plist"; sourceTree = SOURCE_ROOT; };
 		D3931BF627E0F0D2003BDBE2 /* connected four.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "connected four.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3931BF927E0F0D2003BDBE2 /* connected_fourApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = connected_fourApp.swift; sourceTree = "<group>"; };
 		D3931BFB27E0F0D2003BDBE2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -51,6 +52,7 @@
 		D3931BF827E0F0D2003BDBE2 /* connected four */ = {
 			isa = PBXGroup;
 			children = (
+				D358D3B727E5DCDE00D613C2 /* connected-four-Info.plist */,
 				D3931BF927E0F0D2003BDBE2 /* connected_fourApp.swift */,
 				D3931BFB27E0F0D2003BDBE2 /* ContentView.swift */,
 				D3931BFD27E0F0D3003BDBE2 /* Assets.xcassets */,
@@ -271,9 +273,9 @@
 				DEVELOPMENT_ASSET_PATHS = "\"connected four/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "connected-four-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -299,9 +301,9 @@
 				DEVELOPMENT_ASSET_PATHS = "\"connected four/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "connected-four-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
