@@ -27,7 +27,7 @@ struct ContentView: View {
                     Image("yellow")
                         .resizable()
                         .frame(width: 50, height: 50)
-                    Text("出手剩餘\(yellowtimes)次")
+                    Text("出手剩\(yellowtimes)次")
                     Text("Win : \(yellowWin)")
                 }
                 .padding()
@@ -57,7 +57,7 @@ struct ContentView: View {
                     Image("red")
                         .resizable()
                         .frame(width: 50, height: 50 )
-                    Text("出手剩餘\(redtimes)次")
+                    Text("出手剩\(redtimes)次")
                     Text("Win : \(redWin)")
                 }
                 .padding()
@@ -107,7 +107,7 @@ struct ContentView: View {
             }
          
         }
-        .offset(y:-100)
+        .offset(y:-50)
         
         
     }
